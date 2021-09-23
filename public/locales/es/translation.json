@@ -1,0 +1,12 @@
+{
+  "title": "Bienvenido pollas",
+  "description": {
+    "part1": "polias y mas polias",
+    "part2": "Cambia el puto lenguaje."
+  },
+  "menu": {
+    "home": "Inicio",
+    "people": "Gentuza",
+    "search": "Buscar mierda..."
+  }
+}
