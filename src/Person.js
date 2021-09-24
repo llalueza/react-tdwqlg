@@ -2,15 +2,25 @@ import * as React from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useForm } from 'react-hook-form';
 
 import TagGroup from './TagGroup';
+import EditableField from './EditableField';
 
 export default function Person(props) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <Paper sx={{ p: 2, margin: '2em', flexGrow: 1 }}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box
         sx={{
           display: 'grid',
@@ -23,9 +33,22 @@ export default function Person(props) {
         }}
       >
         <Box sx={{ gridArea: 'h' /*, bgcolor: 'primary.main'*/ }}>
-          <Typography variant="h5" gutterBottom component="div">
-            {props.alias ? props.alias : props.surname + ', ' + props.name}
-          </Typography>
+          <EditableField
+            handleSaved={}
+            label={
+              <Typography variant="h5" gutterBottom component="div">
+                {props.alias ? props.alias : props.surname + ', ' + props.name}
+              </Typography>
+            }
+            input={
+              <TextField
+                id="outlined-basic"
+                label={props.alias}
+                variant="outlined"
+                defaultValue={props.alias}
+              />
+            }
+          />
           {props.alias && (
             <Typography variant="h6" gutterBottom component="div">
               {props.surname + ', ' + props.name}
@@ -58,6 +81,7 @@ export default function Person(props) {
           <TagGroup tags={props.tags} />
         </Box>
       </Box>
+      </form>
     </Paper>
   );
 }
