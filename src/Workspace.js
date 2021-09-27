@@ -8,12 +8,12 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
-import Person from './Person';
+import Task from './Task';
 
-export default function People() {
+export default function Workspace() {
   const [page, setPage] = useState(1);
   const [{ data, loading, error }, refetch] = useAxios({
-    url: 'contacts/person/',
+    url: 'tasks/workspace/',
     method: 'GET',
     params: {
       page,
@@ -43,12 +43,10 @@ export default function People() {
           <NavigateNextIcon />
         </Button>
       </ButtonGroup>
-      {data.results.map((person) => {
-        return <Person key={person.id} {...person} />;
+      {data.results.map((task) => {
+        return <Task key={task.id} {...task} />;
       })}
-      {
-        //<pre>{JSON.stringify(data, null, 2)}</pre>
-      }
+      {<pre>{JSON.stringify(data, null, 2)}</pre>}
     </div>
   );
 }

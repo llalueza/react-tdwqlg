@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import GroupIcon from '@mui/icons-material/Groups';
 import HomeIcon from '@mui/icons-material/Home';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 import {
   BrowserRouter as Router,
@@ -31,6 +32,7 @@ import { useTranslation, withTranslation, Trans } from 'react-i18next';
 
 import TagSearch from './TagSearch';
 import People from './People';
+import Workspaces from './Workspaces';
 import MenuItem from './MenuItem';
 
 const drawerWidth = 240;
@@ -158,6 +160,7 @@ export default function MiniDrawer() {
           <List>
             <MenuItem icon={<HomeIcon />} text="home" path="/" />
             <MenuItem icon={<GroupIcon />} text="people" path="/people" />
+            <MenuItem icon={<TaskAltIcon />} text="tasks" path="/tasks" />
           </List>
           <Divider />
           <List>
@@ -178,6 +181,12 @@ export default function MiniDrawer() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
           <Switch>
+            <Route path="/tasks/workspace/:id">
+              <Workspaces />
+            </Route>
+            <Route path="/tasks">
+              <Workspaces />
+            </Route>
             <Route path="/people">
               <People />
             </Route>
