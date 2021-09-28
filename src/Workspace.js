@@ -8,15 +8,18 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
+import { useHistory, useParams } from 'react-router-dom';
+
 import Task from './Task';
 
 export default function Workspace() {
+  const params = useParams();
   const [page, setPage] = useState(1);
   const [{ data, loading, error }, refetch] = useAxios({
-    url: 'tasks/workspace/',
+    url: 'tasks/list/',
     method: 'GET',
     params: {
-      page,
+      workspace: params.id,
       format: 'json',
     },
   });
@@ -28,6 +31,7 @@ export default function Workspace() {
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>Error!!!</p>}
+      {/*<pre>{JSON.stringify(params, null, 2)}</pre>>*/}
       {/*data && <pre>{JSON.stringify(data, null, 2)}</pre>*/}
       <ButtonGroup
         variant="contained"

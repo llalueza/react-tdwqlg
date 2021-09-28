@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import './style.css';
 
 import MiniDrawer from './MiniDrawer';
+import GlobalStateStore from './GlobalStateStore';
 
 // loading component for suspense fallback
 const Loader = () => (
@@ -13,7 +14,9 @@ const Loader = () => (
 export default function App() {
   return (
     <Suspense fallback={<Loader />}>
-      <MiniDrawer />
+      <GlobalStateStore>
+        <MiniDrawer />
+      </GlobalStateStore>
     </Suspense>
   );
 }

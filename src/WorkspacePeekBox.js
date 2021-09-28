@@ -25,10 +25,9 @@ export default function WorkspacePeekBox(props) {
   return (
     <Paper
       sx={{ p: 2, margin: '2em', flexGrow: 1 }}
-      onClick={() => goto('/tasks/workspace/' + props.id)}
+      onClick={() => goto('/tasks/list/workspace/' + props.id)}
     >
       {/*<pre>{JSON.stringify(props, null, 2)}</pre>*/}
-      {<pre>{JSON.stringify(params, null, 2)}</pre>}
       {props.name}
     </Paper>
   );

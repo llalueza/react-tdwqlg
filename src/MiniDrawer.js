@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -30,9 +30,12 @@ import {
 
 import { useTranslation, withTranslation, Trans } from 'react-i18next';
 
+import { GlobalStateContext } from './GlobalStateStore';
+
 import TagSearch from './TagSearch';
 import People from './People';
 import Workspaces from './Workspaces';
+import Workspace from './Workspace';
 import MenuItem from './MenuItem';
 
 const drawerWidth = 240;
@@ -103,6 +106,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer() {
+  const [state, dispatch] = useContext(GlobalStateContext);
   const history = useHistory();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -181,8 +185,8 @@ export default function MiniDrawer() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
           <Switch>
-            <Route path="/tasks/workspace/:id">
-              <Workspaces />
+            <Route path="/tasks/list/workspace/:id">
+              <Workspace />
             </Route>
             <Route path="/tasks">
               <Workspaces />
@@ -192,6 +196,7 @@ export default function MiniDrawer() {
             </Route>
             <Route path="/">Home</Route>
           </Switch>
+          {state && <pre>{JSON.stringify(state, null, 2)}</pre>}
         </Box>
       </Box>
     </Router>
