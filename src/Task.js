@@ -11,54 +11,48 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
 import TagGroup from './TagGroup';
 
 export default function Task(props) {
   return (
-    <div>
-      <Paper sx={{ p: 1, m: 2, flexGrow: 1 }}>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gridTemplateRows: 'auto',
-            gridTemplateAreas: `"check title description actions"
-                              "tags  tags  tags  tags"`,
-          }}
-        >
-          <Box sx={{ gridArea: 'check' }}>
-            <Checkbox
-              edge="start"
-              checked={props.completed}
-              tabIndex={-1}
-              disableRipple
-              inputProps={{ 'aria-labelledby': props.id }}
-            />
-          </Box>
-          <Box sx={{ gridArea: 'title' /*, bgcolor: 'primary.main'*/ }}>
-            <Typography variant="h5" gutterBottom component="div">
-              {props.title}
-            </Typography>
-          </Box>
-          <Box sx={{ gridArea: 'description' /*, bgcolor: 'primary.main'*/ }}>
-            {props.description}
-          </Box>
-          <Box sx={{ gridArea: 'actions' }}>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
+    <Paper sx={{ marginBottom: 2 }}>
+      <ListItem
+        alignItems="flex-start"
+        secondaryAction={
+          <div>
+            <IconButton
+              edge="end"
+              aria-label="edit"
+              sx={{ marginRight: '5px' }}
+            >
+              <EditIcon />
             </IconButton>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
             </IconButton>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
-            </IconButton>
-          </Box>
-          <Box sx={{ gridArea: 'tags' }}>
-            <TagGroup tags={props.tags} />
-          </Box>
-        </Box>
-      </Paper>
-    </div>
+          </div>
+        }
+      >
+        <ListItemAvatar>
+          <Checkbox checked={props.completed} tabIndex={-1} disableRipple />
+        </ListItemAvatar>
+        <ListItemText
+          primary={props.title}
+          secondary={<React.Fragment>{props.description}</React.Fragment>}
+        />
+      </ListItem>
+    </Paper>
   );
 }

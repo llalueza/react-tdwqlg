@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import useAxios from 'axios-hooks';
 
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
@@ -47,10 +56,12 @@ export default function Workspace() {
           <NavigateNextIcon />
         </Button>
       </ButtonGroup>
-      {data.results.map((task) => {
-        return <Task key={task.id} {...task} />;
-      })}
-      {<pre>{JSON.stringify(data, null, 2)}</pre>}
+      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        {data.results.map((task) => {
+          return <Task key={task.id} {...task} />;
+        })}
+      </List>
+      {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
     </div>
   );
 }
