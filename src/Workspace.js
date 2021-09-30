@@ -24,6 +24,17 @@ import Task from './Task';
 export default function Workspace() {
   const params = useParams();
   const [page, setPage] = useState(1);
+  const [
+    { workspaceData, loadingWorkspace, errorWorkspace },
+    refetchWorkspace,
+  ] = useAxios({
+    url: 'tasks/workspace/',
+    method: 'GET',
+    params: {
+      id: params.id,
+      format: 'json',
+    },
+  });
   const [{ data, loading, error }, refetch] = useAxios({
     url: 'tasks/list/',
     method: 'GET',
@@ -38,8 +49,8 @@ export default function Workspace() {
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error!!!</p>}
+      {(loading || loadingWorkspace) && <p>Loading...</p>}
+      {(error || errorWorkspace) && <p>Error!!!</p>}
       {/*<pre>{JSON.stringify(params, null, 2)}</pre>>*/}
       {/*data && <pre>{JSON.stringify(data, null, 2)}</pre>*/}
       <ButtonGroup
@@ -49,12 +60,16 @@ export default function Workspace() {
         <Button onClick={refetch}>
           <RefreshIcon />
         </Button>
-        <Button onClick={() => setPage((p) => Math.max(1, p - 1))}>
-          <NavigateBeforeIcon />
-        </Button>
-        <Button onClick={() => setPage((p) => p + 1)}>
-          <NavigateNextIcon />
-        </Button>
+        {data.previous && (
+          <Button onClick={() => setPage((p) => Math.max(1, p - 1))}>
+            <NavigateBeforeIcon />
+          </Button>
+        )}
+        {data.next && (
+          <Button onClick={() => setPage((p) => p + 1)}>
+            <NavigateNextIcon />
+          </Button>
+        )}
       </ButtonGroup>
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         {data.results.map((task) => {

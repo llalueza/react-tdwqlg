@@ -36,19 +36,21 @@ export default function Workspaces() {
         <Button onClick={refetch}>
           <RefreshIcon />
         </Button>
-        <Button onClick={() => setPage((p) => Math.max(1, p - 1))}>
-          <NavigateBeforeIcon />
-        </Button>
-        <Button onClick={() => setPage((p) => p + 1)}>
-          <NavigateNextIcon />
-        </Button>
+        {data.previous && (
+          <Button onClick={() => setPage((p) => Math.max(1, p - 1))}>
+            <NavigateBeforeIcon />
+          </Button>
+        )}
+        {data.next && (
+          <Button onClick={() => setPage((p) => p + 1)}>
+            <NavigateNextIcon />
+          </Button>
+        )}
       </ButtonGroup>
       {data.results.map((workspace) => {
         return <WorkspacePeekBox key={workspace.id} {...workspace} />;
       })}
-      {
-        //<pre>{JSON.stringify(data, null, 2)}</pre>
-      }
+      {<pre>{JSON.stringify(data, null, 2)}</pre>}
     </div>
   );
 }
